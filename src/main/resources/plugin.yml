@@ -1,0 +1,22 @@
+name: OGGuard
+version: '${version}'
+main: wtf.esuh.ogguard.OGGuardPlugin
+api-version: '1.21'
+folia-supported: true
+description: Packet-level anti-xray and anti-ESP. Hides underground bases and out-of-sight containers in the data sent to each player, without changing the world.
+authors: [esuh]
+website: https://esuh.wtf/
+
+commands:
+  ogguard:
+    description: Show packet visibility status, reload the config or run the self test.
+    usage: /ogguard <status|reload|selftest>
+    permission: ogguard.admin
+
+permissions:
+  ogguard.admin:
+    description: Use /ogguard.
+    default: op
+  ogguard.bypass:
+    description: Receive real underground data everywhere (for staff). Not granted to operators by default.
+    default: false

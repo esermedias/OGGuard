@@ -1,0 +1,77 @@
+# OGGuard - packet-level anti-xray and anti-ESP.
+# The world on disk is never changed; only data transmitted to each client is rewritten.
+# Apply changes with /ogguard reload.
+packet-visibility:
+  enabled: true
+  # Blocks with y < boundary-y can be protected.
+  boundary-y: 0
+  # A player whose feet drop below reveal-enter-y sees real geometry near them. 4 keeps a survival player
+  # (block reach 4.5) from touching any block below Y=0 while still concealed, so no fake block is ever mined.
+  reveal-enter-y: 4
+  # Once revealed, the player is concealed again when their feet reach conceal-exit-y (hysteresis).
+  conceal-exit-y: 12
+  # Real data is sent only for chunks within this radius (Chebyshev, in chunks) of a revealed player.
+  reveal-radius-chunks: 3
+  # AIR, STONE or DEEPSLATE ("stone-equivalent"; natural fill below Y=0).
+  replacement: DEEPSLATE
+  # true: everything below boundary-y is protected. false: only protected-regions (and API regions).
+  protect-all-below-boundary: true
+  # World names covered. Empty list = all worlds.
+  worlds: []
+  # Worlds Guard never touches (case-insensitive, wins over worlds): no block masking, light masking, container
+  # concealment, entity hiding/replay or effect filtering. Every packet for these worlds passes unchanged.
+  # Example:
+  # excluded-worlds:
+  #   - spawn
+  excluded-worlds: []
+  hide-block-entities: true
+  hide-entities: true
+  hide-players: true
+  # Zero sky/block light for masked sections (otherwise light from torches inside a base leaks its shape).
+  mask-light: true
+  # Drop block events, break progress, level events, sounds and particles at hidden positions.
+  filter-effects: true
+  # How often (ticks) each player's visibility state is recomputed on their region thread.
+  update-period-ticks: 5
+  # Example:
+  # protected-regions:
+  #   - world: world
+  #     min: [100, -64, 100]
+  #     max: [160, -1, 160]
+  protected-regions: []
+  # Standing inside a reveal zone reveals nearby real geometry regardless of Y.
+  # reveal-zones:
+  #   - world: world
+  #     min: [120, -10, 120]
+  #     max: [125, 70, 125]
+  reveal-zones: []
+  # Container concealment: block entities of the listed types are sent to a player only while the container is
+  # within max-distance of the player's eyes AND in unobstructed line of sight (rays through opaque full blocks
+  # count as blocked). Otherwise chunk packets carry the block but not its block entity; when the container comes
+  # into view the chunk is resent on the player's region thread. Requires packet-visibility.enabled.
+  container-concealment:
+    enabled: true
+    max-distance: 24
+    check-interval-ticks: 4
+    # true: a withheld container is also sent as replacement-block instead of its real block state, so client-side
+    # storage ESP that reads block states cannot draw it through walls. When the container comes into view its chunk
+    # is resent with the real block and block entity. Light data is never changed.
+    replace-block: true
+    # AIR, STONE or DEEPSLATE.
+    replacement-block: DEEPSLATE
+    # Block entity type ids (namespace optional). shulker_box covers all colours.
+    block-entity-types:
+      - chest
+      - trapped_chest
+      - ender_chest
+      - furnace
+      - blast_furnace
+      - smoker
+      - barrel
+      - shulker_box
+      - hopper
+      - dispenser
+      - dropper
+      - brewing_stand
+      - crafter
+      - decorated_pot

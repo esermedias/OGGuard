@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="240" viewBox="0 0 1280 240">
+  <rect x="0.5" y="0.5" width="1279" height="239" rx="12" fill="#0d1117" stroke="#30363d"/>
+  <rect x="56" y="62" width="6" height="116" rx="3" fill="#58a6ff"/>
+  <text x="88" y="132" fill="#f0f6fc" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="72" font-weight="700">OGGuard</text>
+  <text x="90" y="172" fill="#8b949e" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="24">Packet-level anti-xray and anti-ESP for Folia and Paper.</text>
+  <line x1="900" y1="72" x2="900" y2="168" stroke="#30363d" stroke-width="2"/>
+  <text x="932" y="94" fill="#8b949e" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="20">Minecraft 1.21.11</text>
+  <text x="932" y="128" fill="#8b949e" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="20">CanvasMC · Folia · Paper</text>
+  <text x="932" y="162" fill="#58a6ff" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="20">World never modified</text>
+</svg>
